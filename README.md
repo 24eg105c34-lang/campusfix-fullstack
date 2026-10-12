@@ -9,11 +9,11 @@ The Docker Compose deployment files are in the separate [`campusfix-deployment`]
 
 ## Deploy with Render and Vercel
 
-1. In Render, create a Blueprint from this repository and use the root `render.yaml`. It provisions a Spring Boot API and PostgreSQL. The Render `starter` web service and `basic-256mb` database are paid plans; review Render's current pricing before confirming.
+1. In Render, create a Blueprint from this repository and use the root `render.yaml`. It provisions a free-tier Spring Boot API using an in-memory H2 database. The free backend may sleep when idle, and complaint data is temporary and can be lost when the service restarts or redeploys.
 2. In Vercel, import this repository and set the project Root Directory to `campusfix-frontend`.
 3. In Vercel Project Settings → Environment Variables, set `CAMPUSFIX_API_URL` to `https://<your-render-service>.onrender.com/api` for Production (and Preview if needed), then redeploy.
 
-The Vercel build writes that URL into the generated frontend config. The Render API permits Vercel deployment origins by default; after deployment, set `CORS_ALLOWED_ORIGIN_PATTERNS` in Render to your specific Vercel production domain and redeploy for tighter access. Local development keeps the H2 database; Render uses PostgreSQL.
+The Vercel build writes that URL into the generated frontend config. The Render API permits Vercel deployment origins by default; after deployment, set `CORS_ALLOWED_ORIGIN_PATTERNS` in Render to your specific Vercel production domain and redeploy for tighter access. Local development also uses H2.
 
 ## Run locally
 
