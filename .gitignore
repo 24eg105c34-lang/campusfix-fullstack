@@ -1,4 +1,7 @@
 **/target/
+**/node_modules/
+campusfix-frontend/dist/
+campusfix-frontend/.vercel/
 **/.idea/
 **/*.iml
 .DS_Store

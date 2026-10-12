@@ -1,0 +1,43 @@
+databases:
+  - name: campusfix-db
+    databaseName: campusfix
+    user: campusfix
+    plan: basic-256mb
+    region: singapore
+
+services:
+  - type: web
+    name: campusfix-api
+    runtime: docker
+    plan: starter
+    region: singapore
+    rootDir: campusfix-backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/complaints
+    envVars:
+      - key: DB_URL
+        value: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - key: DB_HOST
+        fromDatabase:
+          name: campusfix-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: campusfix-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: campusfix-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: campusfix-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: campusfix-db
+          property: password
+      - key: H2_CONSOLE_ENABLED
+        value: "false"
+      - key: CORS_ALLOWED_ORIGIN_PATTERNS
+        value: https://*.vercel.app

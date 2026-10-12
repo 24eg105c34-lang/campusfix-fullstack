@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 @RestController
 @RequestMapping("/api/complaints")
-@CrossOrigin(origins = "*") // For demo only; restrict to your frontend domain in production.
+@CrossOrigin(originPatterns = "${CORS_ALLOWED_ORIGIN_PATTERNS:*}")
 public class ComplaintController {
     private final ComplaintRepository repository;
     public ComplaintController(ComplaintRepository repository){this.repository=repository;}

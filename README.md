@@ -7,6 +7,14 @@ CampusFix is a campus complaint and maintenance app. The frontend and backend ar
 
 The Docker Compose deployment files are in the separate [`campusfix-deployment`](https://github.com/24eg105c34-lang/campusfix-deployment) repository.
 
+## Deploy with Render and Vercel
+
+1. In Render, create a Blueprint from this repository and use the root `render.yaml`. It provisions a Spring Boot API and PostgreSQL. The Render `starter` web service and `basic-256mb` database are paid plans; review Render's current pricing before confirming.
+2. In Vercel, import this repository and set the project Root Directory to `campusfix-frontend`.
+3. In Vercel Project Settings → Environment Variables, set `CAMPUSFIX_API_URL` to `https://<your-render-service>.onrender.com/api` for Production (and Preview if needed), then redeploy.
+
+The Vercel build writes that URL into the generated frontend config. The Render API permits Vercel deployment origins by default; after deployment, set `CORS_ALLOWED_ORIGIN_PATTERNS` in Render to your specific Vercel production domain and redeploy for tighter access. Local development keeps the H2 database; Render uses PostgreSQL.
+
 ## Run locally
 
 From the deployment repository's checkout, run:
